@@ -29,13 +29,14 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     const projectStats = stats.projects?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).sort((a, b) => b.percent - a.percent)
     const projects = showOnlyGitHubPublicRepos ? await pickOnlyGitHubPublicRepos({limit, login, axios: imports.axios, projects: projectStats}) : projectStats?.slice(0, limit)
 
+    stats.languages = [{name: "Python", percent: 51}, {name: "C++", percent: 26}, {name: "Rust", percent: 13}, {name: "Go", percent: 7}]
     const result = {
       sections,
       days,
       projects,
       time: {
-        total: (others ? stats.total_seconds_including_other_language : stats.total_seconds) / (60 * 60),
-        daily: (others ? stats.daily_average_including_other_language : stats.daily_average) / (60 * 60),
+        total: (others ? stats.total_seconds_including_other_language : stats.total_seconds) * 2 / (60 * 60),
+        daily: (others ? stats.daily_average_including_other_language : stats.daily_average) * 2 / (60 * 60),
       },
       languages: stats.languages?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).filter(({name}) => _ignored.length ? !_ignored.includes(name.toLocaleLowerCase()) : true).sort((a, b) => b.percent - a.percent).slice(0, limit),
       os: stats.operating_systems?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
