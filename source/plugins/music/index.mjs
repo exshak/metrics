@@ -193,7 +193,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               //Retrieve tracks
               console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
               tracks = []
-              for (let hours = .5; hours <= 24; hours++) {
+              for (let hours = .5; hours <= 240; hours++) {
                 //Load track half-hour by half-hour
                 const timestamp = Date.now() - hours * 60 * 60 * 1000
                 const loaded = (await imports.axios.get(`https://api.spotify.com/v1/me/player/recently-played?after=${timestamp}`, {

@@ -222,7 +222,7 @@ const postprocess = {
     console.debug(`metrics/compute/${login}/base > applying postprocessing`)
     data.account = "user"
     Object.assign(data.user, {
-      isHireable: false,
+      isHireable: true,
       isVerified: false,
       repositories: {},
       contributionsCollection: {},

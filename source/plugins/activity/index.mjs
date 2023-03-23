@@ -1,5 +1,6 @@
 //Setup
 export default async function({login, data, rest, q, account, imports}, {enabled = false, markdown = "inline", extras = false} = {}) {
+  login = "adeebshihadeh"
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
