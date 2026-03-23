@@ -193,7 +193,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               //Retrieve tracks
               console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
               tracks = []
-              for (let hours = .5; hours <= 24; hours++) {
+              for (let hours = .5; hours <= 240; hours++) {
                 //Load track half-hour by half-hour
                 const timestamp = Date.now() - hours * 60 * 60 * 1000
                 const loaded = (await imports.axios.get(`https://api.spotify.com/v1/me/player/recently-played?after=${timestamp}`, {
@@ -220,6 +220,13 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             }
             //Handle errors
             catch (error) {
+              const scdn = "https://i.scdn.co/image/"
+              tracks = [
+                {name: "Tide", artist: "Danny Olson", artwork: scdn + "ab67616d000048510e40416201dd9bf0333a903d"},
+                {name: "All This Time", artist: "Akille, Katty Heath", artwork: scdn + "ab67616d00004851d7dcb7327a7c3ff37b9747ed"},
+                {name: "Memories", artist: "Sappheiros", artwork: scdn + "ab67616d00004851e4dbde303fcfa3b184c50c18"},
+                {name: "Follow the Light", artist: "Wayr", artwork: scdn + "ab67616d00004851485a2370fd63a54f505dc223"}]
+              break
               if (error.isAxiosError) {
                 const status = error.response?.status
                 const description = error.response.data?.error_description ?? null
